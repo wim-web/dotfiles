@@ -2,6 +2,9 @@ function fish_prompt --description 'Write out the prompt'
     set -l last_pipestatus $pipestatus
     set -lx __fish_last_status $status # Export for __fish_print_pipestatus.
 
+    if not set -q __fish_git_prompt_showuntrackedfiles
+        set -g __fish_git_prompt_showuntrackedfiles 1
+    end
     if not set -q __fish_git_prompt_show_informative_status
         set -g __fish_git_prompt_show_informative_status 1
     end
