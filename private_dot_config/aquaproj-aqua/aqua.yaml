@@ -9,4 +9,4 @@ packages:
   - name: stedolan/jq@jq-1.6
   - name: lima-vm/lima@v0.15.0
   - name: hashicorp/terraform@v1.4.6
-  - name: golang/go@go1.20.2
+  - name: golang/go@go1.20.3
