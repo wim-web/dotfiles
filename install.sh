@@ -3,7 +3,11 @@
 script_dir=$(cd $(dirname $0); pwd)
 
 function fish_install() {
-    curl -sL https://raw.githubusercontent.com/microsoft/vscode-dev-containers/main/script-library/fish-debian.sh | sudo bash
+    if type "sudo" > /dev/null 2>&1; then
+        curl -sL https://raw.githubusercontent.com/microsoft/vscode-dev-containers/main/script-library/fish-debian.sh | sudo bash
+    else
+        curl -sL https://raw.githubusercontent.com/microsoft/vscode-dev-containers/main/script-library/fish-debian.sh | bash
+    fi
 }
 
 function aqua_install() {
