@@ -7,6 +7,6 @@ packages:
   - name: x-motemen/ghq@v1.4.2
   - name: peco/peco@v0.5.11
   - name: stedolan/jq@jq-1.6
-  - name: hashicorp/terraform@v1.6.4
+  - name: hashicorp/terraform@v1.7.0
   - name: golang/go@go1.21.6
   - name: 99designs/aws-vault@v7.2.0
