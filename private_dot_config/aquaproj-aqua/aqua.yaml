@@ -10,4 +10,4 @@ packages:
   - name: hashicorp/terraform@v1.11.3
   - name: golang/go@go1.24.2
   - name: 99designs/aws-vault@v7.2.0
-  - name: cli/cli@v2.69.0
+  - name: cli/cli@v2.74.0
