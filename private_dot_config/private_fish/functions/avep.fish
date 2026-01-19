@@ -1,6 +1,13 @@
 function avep
-    set --local profile (\
-        aws-vault list --profiles | peco
+    # pecoでプロファイルを選択し、
+    # 選択結果をaveに渡して実行
+    set -l profile (
+        aws configure list-profiles | peco
     )
-    aws-vault exec "$profile" -- $argv[..]
+
+    if test -z "$profile"
+        return 1
+    end
+
+    ave $profile $argv
 end
