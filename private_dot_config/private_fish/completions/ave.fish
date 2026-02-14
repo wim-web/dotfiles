@@ -1,6 +1,6 @@
 # AWS プロファイルのリストを取得する関数
 function _aws_profiles
-    aws-vault list --profiles
+    aws configure list-profiles
 end
 
 function _command

@@ -1,6 +1,6 @@
 function avl
     # SSO一時クレデンシャルでAWSコンソールを開く
-    # aws-vault login と同じ federation API フローを再現
+    # federation API フローでコンソール用ログインURLを生成
     if not type -q jq; or not type -q curl
         echo "avl requires jq and curl" 1>&2
         return 1
@@ -13,15 +13,15 @@ function avl
 
     # 既存のSSOキャッシュからexportを試し、
     # 失効していれば sso login で更新して再取得
-    set -l creds (aws configure export-credentials --profile "$profile" --format env 2>/dev/null)
+    set -l creds (aws configure export-credentials --profile "$profile" --format fish 2>/dev/null)
     if test $status -ne 0; or test (count $creds) -eq 0
         aws sso login --profile "$profile" >/dev/null
         or return $status
-        set creds (aws configure export-credentials --profile "$profile" --format env)
+        set creds (aws configure export-credentials --profile "$profile" --format fish)
         or return $status
     end
 
-    # exportされた3値を抽出
+    # fish形式で出力された3値を抽出
     # - AccessKeyId
     # - SecretAccessKey
     # - SessionToken
@@ -29,9 +29,8 @@ function avl
     set -l secret_key
     set -l session_token
     for line in $creds
-        set -l clean (string replace -r '^export ' '' -- $line)
-        set -l parts (string split -m 1 '=' -- $clean)
-        if test (count $parts) -ge 2
+        set -l parts (string match -r --groups-only '^set -gx ([^ ]+) "(.*)"$' -- $line)
+        if test (count $parts) -eq 2
             switch $parts[1]
                 case AWS_ACCESS_KEY_ID
                     set access_key $parts[2]
@@ -63,5 +62,5 @@ function avl
     set -l login_url "https://signin.aws.amazon.com/federation?Action=login&Destination=$destination&SigninToken=$token_enc"
 
     # プロファイル毎にChromeのユーザーデータを分けて起動
-    open -na "Google Chrome" --args --user-data-dir="$HOME/Library/Application Support/Google/Chrome/aws-vault/$profile" "$login_url"
+    open -na "Google Chrome" --args --user-data-dir="$HOME/Library/Application Support/Google/Chrome/aws-sso/$profile" "$login_url"
 end
