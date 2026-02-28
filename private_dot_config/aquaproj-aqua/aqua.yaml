@@ -5,7 +5,7 @@ registries:
     ref: v4.464.0 # renovate: depName=aquaproj/aqua-registry
 packages:
   - name: x-motemen/ghq@v1.8.0
-  - name: peco/peco@v0.5.11
+  - name: peco/peco@v0.6.0
   - name: stedolan/jq@jq-1.6
   - name: hashicorp/terraform@v1.14.4
   - name: golang/go@go1.25.6
