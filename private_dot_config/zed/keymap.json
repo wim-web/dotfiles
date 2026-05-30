@@ -1,0 +1,9 @@
+[
+  {
+    "bindings": {
+      "cmd-1": "project_panel::Toggle",
+      "cmd-0": "terminal_panel::Toggle",
+      "cmd-shift-a": "command_palette::Toggle"
+    }
+  }
+]
