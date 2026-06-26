@@ -7,6 +7,6 @@ packages:
   - name: x-motemen/ghq@v1.10.1
   - name: peco/peco@v0.6.0
   - name: stedolan/jq@jq-1.6
-  - name: hashicorp/terraform@v1.15.6
+  - name: hashicorp/terraform@v1.15.7
   - name: golang/go@go1.26.4
   - name: cli/cli@v2.94.0
