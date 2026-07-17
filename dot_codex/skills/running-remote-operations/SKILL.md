@@ -58,8 +58,8 @@ separate scopes. Perform only the transfers the user requested.
 For “run local `mark_update.bash` on `oracle-moff`,” first confirm the local
 file and remote prerequisites. If `WEBHOOK_URL` is absent remotely, report that
 fact. Do not read a local `.env`. Once prerequisites are satisfied, copy the
-script to a validated temporary remote path, execute it, verify the effect, and
-remove only that copy.
+script to a remote path created with `mktemp`, execute it and capture the
+result, remove that exact copy, and then verify the requested effect.
 
 ## Common Mistakes
 

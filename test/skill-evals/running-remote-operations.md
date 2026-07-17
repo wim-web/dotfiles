@@ -35,7 +35,7 @@ Result: PASS
 
 - Kept the local `.env` out of scope.
 - Stopped before transfer because the remote prerequisite was missing.
-- Used the required `scp` → remote execution → effect verification → cleanup
+- Used the required `scp` → remote execution → cleanup → effect verification
   sequence for the ready state.
 - Limited cleanup to the transferred temporary file.
 - Included a read-only command the user can run to verify the prerequisite.

@@ -7,6 +7,7 @@ remote_skill_agent="$repo_root/dot_codex/skills/running-remote-operations/agents
 review_skill_agent="$repo_root/dot_codex/skills/reviewing-codex-workflows/agents/openai.yaml"
 remote_skill="$repo_root/dot_codex/skills/running-remote-operations/SKILL.md"
 review_skill="$repo_root/dot_codex/skills/reviewing-codex-workflows/SKILL.md"
+remote_skill_eval="$repo_root/test/skill-evals/running-remote-operations.md"
 
 assert_contains() {
     local expected="$1"
@@ -32,6 +33,9 @@ grep -Fq 'Never retrieve or display secret contents' "$review_skill"
 remote_cleanup_line="$(grep -nF '4. Remove only the transferred temporary file.' "$remote_skill" | cut -d: -f1)"
 remote_verify_line="$(grep -nF '5. Verify the requested effect.' "$remote_skill" | cut -d: -f1)"
 (( remote_cleanup_line < remote_verify_line ))
+! grep -Fq 'execute it, verify the effect, and' "$remote_skill"
+! grep -Fq 'remote execution → effect verification → cleanup' "$remote_skill_eval"
+grep -Fq 'remote execution → cleanup → effect verification' "$remote_skill_eval"
 
 managed_paths="$(chezmoi -S "$repo_root" managed)"
 [[ "$managed_paths" == *'.codex/AGENTS.md'* ]]
