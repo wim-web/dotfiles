@@ -2,6 +2,8 @@
 /README.md
 /install.sh
 /renovate.json
+/docs
+/test
 
 {{- if eq (env "REMOTE_CONTAINERS") "true" }}
 # for devcontainer
