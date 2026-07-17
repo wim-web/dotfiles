@@ -25,8 +25,10 @@ separate scopes. Perform only the transfers the user requested.
      user explicitly requests that transfer.
 3. Transfer multi-line code as a file.
    - Create or reuse one exact local file.
-   - Resolve one exact temporary remote path.
-   - Use `scp`, then execute the transferred file with `ssh`.
+   - Create the remote temporary path atomically with `mktemp` on the remote host
+     and capture the exact returned path. Never guess, reuse, or replace a
+     pre-existing remote path.
+   - Use `scp` to that newly created path, then execute it with `ssh`.
    - Do not pipe script bodies, use heredocs over SSH, or embed script text in
      a remote shell command.
 4. Verify the requested effect.
@@ -35,6 +37,8 @@ separate scopes. Perform only the transfers the user requested.
    - Continue independent checks after one failure and aggregate results.
 5. Remove only the transferred temporary file.
    - Verify the cleanup target equals the resolved temporary path.
+   - Remove only the exact path returned by that `mktemp` command, including
+     after copy or execution failure.
    - Report whether cleanup succeeded. Do not remove pre-existing user files.
 
 ## Quick Reference

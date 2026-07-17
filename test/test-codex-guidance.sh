@@ -5,6 +5,7 @@ repo_root="$(cd "$(dirname "$0")/.." && pwd)"
 agents_file="$repo_root/dot_codex/AGENTS.md"
 remote_skill_agent="$repo_root/dot_codex/skills/running-remote-operations/agents/openai.yaml"
 review_skill_agent="$repo_root/dot_codex/skills/reviewing-codex-workflows/agents/openai.yaml"
+remote_skill="$repo_root/dot_codex/skills/running-remote-operations/SKILL.md"
 review_skill="$repo_root/dot_codex/skills/reviewing-codex-workflows/SKILL.md"
 
 assert_contains() {
@@ -23,6 +24,8 @@ assert_contains '/Users/wim/.codex/bin/automation-log.sh <automation-id>'
 
 grep -Fq '$running-remote-operations' "$remote_skill_agent"
 grep -Fq '$reviewing-codex-workflows' "$review_skill_agent"
+grep -Fq 'Create the remote temporary path atomically with `mktemp` on the remote host' "$remote_skill"
+grep -Fq 'Remove only the exact path returned by that `mktemp` command' "$remote_skill"
 grep -Fq 'Never retrieve or display secret contents' "$review_skill"
 
 managed_paths="$(chezmoi -S "$repo_root" managed)"
