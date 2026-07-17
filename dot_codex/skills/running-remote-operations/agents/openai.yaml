@@ -1,0 +1,4 @@
+interface:
+  display_name: "Remote Operations"
+  short_description: "Safely run SSH and SCP operations"
+  default_prompt: "Run this remote operation while preserving local and remote boundaries."
