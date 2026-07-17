@@ -19,6 +19,9 @@ the friction decreases. Usage consumption is never the success metric.
 3. Read at most eight turns from each representative task and omit command
    output by default. Stop expanding the sample after three evidence-backed
    patterns are established. Exclude unrelated private content.
+   Never retrieve or display secret contents, tokens, credentials, cookies,
+   authentication files, or private keys, even when they are relevant to the
+   review. Use only non-sensitive presence or metadata when necessary.
 4. Inspect durable context relevant to the finding: `AGENTS.md`, safe Codex
    configuration keys, personal skills, plugins, MCP servers, automations,
    dotfiles, and tool ownership.
