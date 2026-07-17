@@ -1,0 +1,80 @@
+{
+  "sample_size": 8,
+  "tasks": [
+    {
+      "topic": "weekly usage improvement",
+      "correction_turns": 3,
+      "observed": [
+        "generic repository audit was rejected",
+        "entertainment framing was rejected",
+        "asking the user to select one safe category was rejected"
+      ]
+    },
+    {
+      "topic": "run local script on remote host",
+      "correction_turns": 2,
+      "observed": [
+        "local .env value was injected remotely without request",
+        "script was streamed instead of transferred with scp"
+      ]
+    },
+    {
+      "topic": "identify Node installation owner",
+      "correction_turns": 2,
+      "observed": [
+        "Hermes and Homebrew both provided Node",
+        "PATH ownership explanation had to be corrected"
+      ]
+    },
+    {
+      "topic": "open external file in Zed window",
+      "correction_turns": 5,
+      "observed": [
+        "initial workaround did not satisfy the reported behavior",
+        "an unrelated Add Folder suggestion was repeated before being discarded"
+      ]
+    },
+    {
+      "topic": "application logging",
+      "correction_turns": 1,
+      "observed": [
+        "case-specific logging was implemented before the global logging requirement was understood"
+      ]
+    },
+    {
+      "topic": "create renew command",
+      "correction_turns": 0,
+      "observed": ["scoped implementation and verification completed"]
+    },
+    {
+      "topic": "renovate automation",
+      "correction_turns": 0,
+      "observed": ["weekly automation already exists"]
+    },
+    {
+      "topic": "product-wide repository review",
+      "correction_turns": 0,
+      "observed": ["read-only review requested with explicit evidence format"]
+    }
+  ],
+  "environment": {
+    "codex": {
+      "global_agents_managed_by_dotfiles": false,
+      "personal_skill_count": 6,
+      "custom_agent_count": 0,
+      "automation_count": 1
+    },
+    "tool_owners": {
+      "homebrew": ["codex", "git", "node", "python3", "mise", "chezmoi"],
+      "aqua": ["gh", "go", "jq"],
+      "standalone": ["uv"],
+      "rustup": ["rustc", "cargo"],
+      "application_bundle": ["docker"]
+    },
+    "observed_gaps": [
+      "no machine-readable tool ownership manifest",
+      "no read-only environment doctor",
+      "Codex guidance and personal skills are not tracked by chezmoi"
+    ]
+  }
+}

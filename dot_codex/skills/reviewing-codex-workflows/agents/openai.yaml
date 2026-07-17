@@ -1,0 +1,4 @@
+interface:
+  display_name: "Codex Workflow Review"
+  short_description: "Find durable improvements from recent Codex work"
+  default_prompt: "Review recent Codex work and produce durable workflow improvements."
