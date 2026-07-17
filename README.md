@@ -11,3 +11,14 @@ managed by https://www.chezmoi.io/
 ```
 chezmoi update
 ```
+
+## Codex個人設定
+
+`dot_codex/AGENTS.md` と `dot_codex/skills/` をchezmoiで管理する。
+
+変更を確認してから反映する。
+
+```sh
+chezmoi diff
+chezmoi apply ~/.codex/AGENTS.md ~/.codex/skills
+```
