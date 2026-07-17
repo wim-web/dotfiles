@@ -26,7 +26,12 @@ grep -Fq '$running-remote-operations' "$remote_skill_agent"
 grep -Fq '$reviewing-codex-workflows' "$review_skill_agent"
 grep -Fq 'Create the remote temporary path atomically with `mktemp` on the remote host' "$remote_skill"
 grep -Fq 'Remove only the exact path returned by that `mktemp` command' "$remote_skill"
+grep -Fq 'Run cleanup as a finally-style step after `mktemp` succeeds' "$remote_skill"
 grep -Fq 'Never retrieve or display secret contents' "$review_skill"
+
+remote_cleanup_line="$(grep -nF '4. Remove only the transferred temporary file.' "$remote_skill" | cut -d: -f1)"
+remote_verify_line="$(grep -nF '5. Verify the requested effect.' "$remote_skill" | cut -d: -f1)"
+(( remote_cleanup_line < remote_verify_line ))
 
 managed_paths="$(chezmoi -S "$repo_root" managed)"
 [[ "$managed_paths" == *'.codex/AGENTS.md'* ]]

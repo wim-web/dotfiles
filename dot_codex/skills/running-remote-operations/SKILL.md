@@ -29,17 +29,19 @@ separate scopes. Perform only the transfers the user requested.
      and capture the exact returned path. Never guess, reuse, or replace a
      pre-existing remote path.
    - Use `scp` to that newly created path, then execute it with `ssh`.
+   - Capture the remote exit status and relevant bounded output before cleanup.
    - Do not pipe script bodies, use heredocs over SSH, or embed script text in
      a remote shell command.
-4. Verify the requested effect.
-   - Capture the remote exit status and relevant bounded output.
+4. Remove only the transferred temporary file.
+   - Run cleanup as a finally-style step after `mktemp` succeeds, whether copy,
+     execution, output capture, or a later check fails or is interrupted.
+   - Verify the cleanup target equals the resolved temporary path.
+   - Remove only the exact path returned by that `mktemp` command.
+   - Report whether cleanup succeeded. Do not remove pre-existing user files.
+5. Verify the requested effect.
+   - Evaluate the captured exit status and output after cleanup is attempted.
    - Verify the actual effect separately when exit zero does not prove it.
    - Continue independent checks after one failure and aggregate results.
-5. Remove only the transferred temporary file.
-   - Verify the cleanup target equals the resolved temporary path.
-   - Remove only the exact path returned by that `mktemp` command, including
-     after copy or execution failure.
-   - Report whether cleanup succeeded. Do not remove pre-existing user files.
 
 ## Quick Reference
 
