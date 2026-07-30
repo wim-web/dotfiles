@@ -51,14 +51,7 @@ description: このリポジトリの Renovate PR を調査し、repo 固有ル�
   - `private_dot_config/aquaproj-aqua/aqua.yaml`
   - `renovate.json`
   - `.github/workflows/renovate_config_validate.yaml`
-- `private_dot_config/aquaproj-aqua/aqua.yaml` で許可する対象は、この repo で aqua により管理している CLI または registry の patch / minor 更新だけ。
-  - `aquaproj/aqua-registry`
-  - `x-motemen/ghq`
-  - `peco/peco`
-  - `stedolan/jq`
-  - `hashicorp/terraform`
-  - `golang/go`
-  - `cli/cli`
+- `private_dot_config/aquaproj-aqua/aqua.yaml` で許可する対象は、package 名の固定リストでは判断しない。PR body、upstream 公式 changelog / release notes / migration guide、repo 内の使用箇所を確認し、この repo の shell / alias / workflow / local tool 実行への影響が低いと具体的に説明できる patch / minor 更新だけ。
 - `.github/workflows/renovate_config_validate.yaml` で許可する対象は、`actions/checkout` の patch / minor 更新、または `rinchsan/renovate-config-validator` action の patch 更新だけ。SHA pin と末尾コメントの version が同じ release を指していることを確認する。
 - `renovate.json` で許可する対象は、`local>wim-web/renovate-config` を維持したままの `github>aquaproj/aqua-renovate-config:file#X.Y.Z(private_dot_config/aquaproj-aqua/aqua.yaml)` patch / minor 更新だけ。
 - Renovate PR 本文と upstream 公式 changelog / release notes / migration guide の両方を確認し、この dotfiles repo に破壊的変更、設定変更、runtime 要件変更、利用方法変更の影響がないと判断できる。
@@ -83,7 +76,7 @@ description: このリポジトリの Renovate PR を調査し、repo 固有ル�
 - `private_dot_config/aquaproj-aqua/aqua.yaml` に新しい package を追加する PR、既存 package を削除する PR、registry type を変更する PR。
 - `hashicorp/terraform` の minor 更新で、upstream release notes / upgrade notes に backend、state、provider install、plan/apply、environment variable、CLI output 互換性への影響があり、この repo の利用に無関係だと判断できないもの。
 - `cli/cli` の minor 更新で、既存 command の互換性を壊す明示的 breaking change、必須 config migration、認証方式の必須変更、extension 互換性破壊、local config format 変更があり、この repo の利用影響を否定できないもの。security fix、telemetry 実装変更、auth guidance、新 command 追加、bug fix が含まれるだけでは禁止条件にしない。
-- `golang/go`、`x-motemen/ghq`、`peco/peco`、`stedolan/jq` の更新で、runtime 要件変更、設定形式変更、CLI 互換性変更、deprecated API、破壊的変更の可能性が残るもの。
+- aqua 管理 CLI / registry の更新で、runtime 要件変更、設定形式変更、CLI 互換性変更、deprecated API、破壊的変更の可能性が残るもの。
 - GitHub Actions 更新で、Node runtime 要件、permissions、token scope、workflow trigger、action input/output、SHA pin の整合性に疑問が残るもの。
 - Renovate PR 本文または upstream 公式 changelog / release notes / migration guide を確認できず、影響範囲を判断できないもの。
 - breaking changes / peer dependency 変更 / runtime 要件変更 / 設定変更の可能性が残るもの。
