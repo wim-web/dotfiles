@@ -58,7 +58,7 @@ description: このリポジトリの Renovate PR を調査し、repo 固有ル�
 - `golang/go` の minor 更新は、次のすべてを満たす場合に限り自動マージしてよい。
   - Renovate の update type が minor で、変更が `private_dot_config/aquaproj-aqua/aqua.yaml` にある既存 `golang/go` version pin の 1 行だけであり、対象と更新先の version が明確である。新しい package の追加、package の削除、registry type の変更、Go version を参照する別設定の変更は含めない。
   - repo 内に source code、`go.mod` / `go.sum`、build / test / lint / CI 設定、migration、database、infra、deploy、Docker、または Go の runtime 設定への変更がない。既存の shell / alias / workflow / local tool 実行箇所を検索し、今回の pin 更新による利用方法の変更や強い結合がないことを具体的に説明できる。
-  - Renovate PR 本文と Go 公式 release notes / changelog / migration guide の両方で、breaking change、deprecated / removed API・behavior、必須 migration、runtime / toolchain / OS 要件変更を確認する。runtime / OS 変更があっても、この repo の documented / observed usage、source、runtime 設定に影響しないことを具体的に説明できる場合だけ許可し、影響を否定できない・判断できない場合はマージしない。
+  - Renovate PR 本文と Go 公式 release notes / changelog / compatibility policy / migration guide の両方で、breaking change、deprecated / removed API・behavior、必須 migration、runtime / toolchain / OS 要件変更を確認する。Go 1.27 の macOS 13 Ventura 以降へのサポート範囲変更のような upstream の OS 変更を確認した場合も、現在の repo 内検索で Go の source、module、build/test 呼び出し、CI・deploy・infra、runtime 設定がなく、aqua の既存 CLI pin 以外の利用がないことを根拠に repo への影響を否定できる場合は許可する。影響を否定できない・判断できない場合はマージしない。将来 Go の利用箇所や旧 OS のサポート宣言が追加された場合はこの例外を適用しない。
   - author が `app/renovate` または `renovate[bot]`、base が `main`、非draft、`mergeable` が `MERGEABLE` で、存在する全 checks が SUCCESS である。required check が設定されている場合は missing も禁止する。
   - requested changes、未解決の人間 review comment、または人間確認を要する blocker がない。
 - `cli/cli` の minor 更新は、release notes に security fix、telemetry、auth guidance、新しい command/subcommand、既存 command の bug fix が含まれていても、それだけでは禁止しない。以下をすべて満たす場合は自動マージしてよい。
@@ -127,6 +127,7 @@ description: このリポジトリの Renovate PR を調査し、repo 固有ル�
 - コメントには、確認した release notes / changelog、影響範囲、マージしない理由、人間が見るべき点を簡潔に含める。
 - 既に同等内容の comment がある場合は、重複コメントを投稿せず comment skipped として扱い、既存コメント URL を報告する。
 - マージしなかったが人間確認が必要な Renovate PR には、コメント投稿の有無に関係なく `renovate-needs-manual-review` を付ける。既に同等内容の comment がある場合も、重複コメントは投稿せず label は付ける。
+- 再調査で自動マージ条件を満たした PR に残っている `renovate-needs-manual-review` label は削除し、旧 blocker が解消された根拠と再判定結果を PR comment に記録してからマージする。
 - 単に check が pending、ネットワークエラーで upstream を確認できない、一時的に mergeable が unknown、というだけの場合はコメントせず報告に留める。
 
 ## 禁止操作
