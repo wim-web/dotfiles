@@ -54,7 +54,13 @@ description: このリポジトリの Renovate PR を調査し、repo 固有ル�
 - `private_dot_config/aquaproj-aqua/aqua.yaml` で許可する対象は、package 名の固定リストでは判断しない。PR body、upstream 公式 changelog / release notes / migration guide、repo 内の使用箇所を確認し、この repo の shell / alias / workflow / local tool 実行への影響が低いと具体的に説明できる patch / minor 更新だけ。
 - `.github/workflows/renovate_config_validate.yaml` で許可する対象は、`actions/checkout` の patch / minor 更新、または `rinchsan/renovate-config-validator` action の patch 更新だけ。SHA pin と末尾コメントの version が同じ release を指していることを確認する。
 - `renovate.json` で許可する対象は、`local>wim-web/renovate-config` を維持したままの `github>aquaproj/aqua-renovate-config:file#X.Y.Z(private_dot_config/aquaproj-aqua/aqua.yaml)` patch / minor 更新だけ。
-- Renovate PR 本文と upstream 公式 changelog / release notes / migration guide の両方を確認し、この dotfiles repo に破壊的変更、設定変更、runtime 要件変更、利用方法変更の影響がないと判断できる。
+- Renovate PR 本文と upstream 公式 changelog / release notes / migration guide の両方を確認し、この dotfiles repo に破壊的変更、設定変更、runtime 要件変更、利用方法変更の影響がないと判断できる。`golang/go` の minor 更新で upstream に runtime / OS 変更がある場合は、下記の Go 専用ルールでこの repo への影響がないことを具体的に確認できる場合に限り許可する。
+- `golang/go` の minor 更新は、次のすべてを満たす場合に限り自動マージしてよい。
+  - Renovate の update type が minor で、変更が `private_dot_config/aquaproj-aqua/aqua.yaml` にある既存 `golang/go` version pin の 1 行だけであり、対象と更新先の version が明確である。新しい package の追加、package の削除、registry type の変更、Go version を参照する別設定の変更は含めない。
+  - repo 内に source code、`go.mod` / `go.sum`、build / test / lint / CI 設定、migration、database、infra、deploy、Docker、または Go の runtime 設定への変更がない。既存の shell / alias / workflow / local tool 実行箇所を検索し、今回の pin 更新による利用方法の変更や強い結合がないことを具体的に説明できる。
+  - Renovate PR 本文と Go 公式 release notes / changelog / migration guide の両方で、breaking change、deprecated / removed API・behavior、必須 migration、runtime / toolchain / OS 要件変更を確認する。runtime / OS 変更があっても、この repo の documented / observed usage、source、runtime 設定に影響しないことを具体的に説明できる場合だけ許可し、影響を否定できない・判断できない場合はマージしない。
+  - author が `app/renovate` または `renovate[bot]`、base が `main`、非draft、`mergeable` が `MERGEABLE` で、存在する全 checks が SUCCESS である。required check が設定されている場合は missing も禁止する。
+  - requested changes、未解決の人間 review comment、または人間確認を要する blocker がない。
 - `cli/cli` の minor 更新は、release notes に security fix、telemetry、auth guidance、新しい command/subcommand、既存 command の bug fix が含まれていても、それだけでは禁止しない。以下をすべて満たす場合は自動マージしてよい。
   - 変更が `private_dot_config/aquaproj-aqua/aqua.yaml` の既存 `cli/cli` version pin 1 行だけである。
   - upstream release notes / changelog / migration guide / security advisory に、既存 command の互換性を壊す明示的 breaking change、必須 config migration、認証方式の必須変更、extension 互換性破壊、local config format 変更がない。
@@ -79,7 +85,7 @@ description: このリポジトリの Renovate PR を調査し、repo 固有ル�
 - aqua 管理 CLI / registry の更新で、runtime 要件変更、設定形式変更、CLI 互換性変更、deprecated API、破壊的変更の可能性が残るもの。
 - GitHub Actions 更新で、Node runtime 要件、permissions、token scope、workflow trigger、action input/output、SHA pin の整合性に疑問が残るもの。
 - Renovate PR 本文または upstream 公式 changelog / release notes / migration guide を確認できず、影響範囲を判断できないもの。
-- breaking changes / peer dependency 変更 / runtime 要件変更 / 設定変更の可能性が残るもの。
+- breaking changes / peer dependency 変更 / runtime 要件変更 / 設定変更の可能性が残り、対象 dependency の専用 allow rule でこの repo への影響を明示的に否定できないもの。
 - failed / pending / 必要な check の missing があるもの。
 - requested changes や未解決の人間 review comment があるもの。
 
