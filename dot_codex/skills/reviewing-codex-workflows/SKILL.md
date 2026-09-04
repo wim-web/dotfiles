@@ -12,13 +12,20 @@ the friction decreases. Usage consumption is never the success metric.
 
 ## Evidence Pass
 
-1. List up to 20 recent Codex tasks. Use titles, previews, status, duration, and
-   project first.
-2. Select at most five representative tasks only when they show corrections,
+1. Identify the requested scope and review window first. For a routine review,
+   inspect up to 20 recent Codex task summaries, including archived tasks. Filter
+   out non-Codex chats before applying the limit. When the user names projects
+   or asks for broad coverage, inventory those scopes and disclose which have
+   direct evidence instead of letting a fixed sample silently narrow the request.
+2. For a routine review, start with up to five tasks that show corrections,
    repeated attempts, long diagnosis, incomplete outcomes, or repeated work.
-3. Read at most eight turns from each representative task and omit command
-   output by default. Stop expanding the sample after three evidence-backed
-   patterns are established. Exclude unrelated private content.
+3. Start with up to eight turns from each selected task and omit command
+   output by default. Deduplicate inherited turns across forks. Use a bounded
+   sample suited to the requested scope; three patterns are a routine stopping
+   heuristic, not a substitute for explicitly requested coverage. Expand only
+   to cover that scope or resolve a concrete finding. Label the
+   sample as selected for friction, not a representative failure-rate estimate.
+   Exclude unrelated private content.
    Never retrieve or display secret contents, tokens, credentials, cookies,
    authentication files, or private keys, even when they are relevant to the
    review. Use only non-sensitive presence or metadata when necessary.
@@ -27,6 +34,11 @@ the friction decreases. Usage consumption is never the success metric.
    dotfiles, and tool ownership.
 5. Label every statement as observed evidence or inference. Do not count a
    single anecdote as a recurring pattern.
+6. Trace each candidate to the user-visible user/assistant exchange, relevant tool
+   result, and instructions actually loaded at that time. Separate built-in
+   memory, automation memory, application data, and conversation compaction.
+   Recheck current files so already-resolved findings are not proposed again.
+   A tool-call string is not proof of execution or approval.
 
 ## Improvement Pass
 
