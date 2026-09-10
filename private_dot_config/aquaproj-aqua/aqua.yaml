@@ -8,5 +8,5 @@ packages:
   - name: peco/peco@v0.6.0
   - name: stedolan/jq@jq-1.6
   - name: hashicorp/terraform@v1.16.2
-  - name: golang/go@go1.27.0
+  - name: golang/go@go1.27.1
   - name: cli/cli@v2.98.0
