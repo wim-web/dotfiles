@@ -4,7 +4,6 @@
 /renovate.json
 /renstiq.yaml
 /docs
-/test
 
 {{- if eq (env "REMOTE_CONTAINERS") "true" }}
 # for devcontainer
